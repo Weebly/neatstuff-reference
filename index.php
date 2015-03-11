@@ -1,5 +1,12 @@
 <?php
-require_once(__DIR__ . "/bootstrap/Init.php");
+/**
+ * Index shows all of our themes for a user to choose on the signup flow
+ *
+ * @package NeatstuffReference
+ * @author Drew Richards <drew@weebly.com>
+ * @since 
+ */
+require_once( __DIR__ . '/bootstrap/Init.php' );
 $tags = array("Bold", "Corporate", "Fun", "Simple", "Sleek");
 $themes = \Model\Theme::findAll();
 ?>

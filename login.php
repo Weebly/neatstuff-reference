@@ -1,5 +1,12 @@
 <?php
-require_once(__DIR__ . "/bootstrap/Init.php");
+/**
+ * Login exposes a login interface for web users
+ *
+ * @package NeatstuffReference
+ * @author Dustin Doiron <dustin@weebly.com>
+ * @since 
+ */
+require_once( __DIR__ . '/bootstrap/Init.php' );
 $theme = new \Model\Theme(364);
 ?>
 <!DOCTYPE html>
