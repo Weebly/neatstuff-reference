@@ -1,11 +1,11 @@
 <?php
 /**
+ * Weebly\APIClient performs API requests to the Weebly Cloud for Hosts API
  *
- *
- *
- *
- *
- *
+ * @package NeatstuffReference
+ * @subpackage Weebly
+ * @author Dustin Doiron <dustin@weebly.com>
+ * @since 
  */
 namespace Weebly;
 
@@ -13,12 +13,25 @@ use \Data\Configuration;
 
 class APIClient
 {
+  /**
+   * @var $curlHandler
+   */
   private static $curlHandler = NULL;
 
+  /**
+   * Default CURL settings
+   * @var $curlSettings
+   */
   private static $curlSettings = array(
     CURLOPT_RETURNTRANSFER => true
   );
 
+  /**
+   * Retrieves the static instance of CURL
+   * If one does not exist, create one
+   *
+   * @return instanceof \curl
+   */
   private static function getCurlHandler( )
   {
     if ( isset( self::$curlHandler ) === false ) {
@@ -33,6 +46,11 @@ class APIClient
     return self::$curlHandler;
   }
 
+  /**
+   * Closes the static CURL handler, if one exists
+   *
+   * @return void
+   */
   public static function closeCurlHandler( )
   {
     if ( isset( self::$curlHandler ) === false ) {
@@ -42,6 +60,14 @@ class APIClient
     curl_close( self::$curlHandler );
   }
 
+  /**
+   * Performs a POST to the Weebly Cloud for Hosts API with the given URL and payload
+   *
+   * @param string $url
+   * @param mixed $payload
+   *
+   * @return array
+   */
   public static function post( $url, $payload )
   {
     $curl = self::getCurlHandler( );
@@ -65,6 +91,15 @@ class APIClient
     return json_decode( curl_exec( $curl ), true );
   }
 
+  /**
+   * Generates a request hash from the given method, URL, and encoded payload
+   *
+   * @param string $method
+   * @param string $url
+   * @param string $payload
+   *
+   * @return string
+   */
   private static function generateRequestHash( $method, $url, $payload )
   {
     return hash_hmac(
