@@ -30,10 +30,12 @@ class Controller
   );
 
   /**
-   * Creates a new user with the given payload, which must contain
+   * Attempts to create a new user with the given payload, which must contain
    * 'email' => string
    * 'password' => string
    * 'subdomain' => string
+   *
+   * This is a method exposed to the API\Endpoint class
    *
    * @return array
    * @throws \API\Exception
@@ -61,7 +63,14 @@ class Controller
   }
 
   /**
-   * Receives a 
+   * Attempts to create a new user with the given credentials
+   *
+   * @param string $email
+   * @param string $password
+   * @param string $subdomain
+   *
+   * @return bool
+   * @throws \API\Exception
    */
   public static function createUser( $email, $password, $subdomain )
   {
@@ -78,7 +87,7 @@ class Controller
       throw new \API\Exception( 'Subdomain already exists' );
     }
 
-    $model = new \Model\User( );
+    $model = new User( );
     $model->email = $email;
     try
     {
@@ -94,11 +103,17 @@ class Controller
   }
 
   /**
+   * Creates a new Weebly account with the given NeatStuff userId
+   * Saves the returned Weebly userId in the User model
    *
+   * @param int $userId
+   *
+   * @return void
+   * @throws \API\Exception
    */
   public static function createWeeblyAccount( $userId )
   {
-    $user = new \Model\User( $userId );
+    $user = new User( $userId );
     if ( $user->user_id === NULL ) {
       throw new \API\Exception( 'Could not find user ' . $userId );
     }
@@ -119,19 +134,24 @@ class Controller
   }
 
   /**
+   * Creates a new Weebly site with the given NeatStuff userId, themeId
    *
+   * @param int $userId
+   * @param int $themeId
    *
+   * @return void
+   * @throws \API\Exception
    */
   public static function createWeeblySite( $userId, $themeId )
   {
-    $user = new \Model\User( $userId );
+    $user = new User( $userId );
     if ( $user->user_id === NULL ) {
       throw new \API\Exception( 'Could not find user ' . $userId );
     }
 
-    $theme = new \Model\Theme( $themeId );
+    $theme = new Theme( $themeId );
     if ( $theme->theme_id === NULL ) {
-			throw new \API\Exception( 'Could not find theme ' . $themeId );
+      throw new \API\Exception( 'Could not find theme ' . $themeId );
     }
 
     $site = \Weebly\APIClient::post(
@@ -190,11 +210,16 @@ class Controller
   }
 
   /**
+   * Retrieves the Weebly login link for the given NeatStuff userId
    *
+   * @param int $userId
+   *
+   * @return string
+   * @throws \API\Exception
    */
   private static function getWeeblyLoginLink( $userId )
   {
-    $user = new \Model\User( $userId );
+    $user = new User( $userId );
     if ( $user->user_id === NULL ) {
       throw new \API\Exception( 'Could not find user ' . $userId );
     }
@@ -212,11 +237,16 @@ class Controller
   }
 
   /**
+   * Creates a new local publish directory for the given NeatStuff userId
    *
+   * @param int $userId
+   *
+   * @return void
+   * @throws \API\Exception
    */
   private static function createUserDirectory( $userId )
   {
-    $user = new \Model\User( $userId );
+    $user = new User( $userId );
     if ( $user->user_id === NULL ) {
       throw new \API\Exception( 'Could not find user ' . $userId );
     }
@@ -229,7 +259,12 @@ class Controller
   }
 
   /**
+   * Validates, normalizes, the given subdomain
    *
+   * @param string $subdomain
+   *
+   * @return string
+   * @throws \API\Exception
    */
   private static function validateSubdomain( $subdomain )
   {
@@ -241,11 +276,15 @@ class Controller
   }
 
   /**
+   * Determines whether a user exists based on the given primary key
    *
+   * @param mixed $key
+   *
+   * @return bool|int
    */
   private static function doesUserExist( $key )
   {
-    $model = new \Model\User( $key );
+    $model = new User( $key );
     if ( $model->user_id === NULL ) {
       return false;
     }
@@ -254,14 +293,16 @@ class Controller
   }
 
   /**
+   * Authenticates the given NeatStuff credentials, in payload, and creates a Weebly login link
    *
+   * @param array $payload
    *
-   *
-   *
+   * @return array
+   * @throws \API\Exception
    */
   public static function login( $payload )
   {
-    $user = new \Model\User( $payload['email'] );
+    $user = new User( $payload['email'] );
     if ( $user->user_id === NULL ) {
         throw new \API\Exception( 'Username or password failure' );
     }
