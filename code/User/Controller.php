@@ -1,11 +1,11 @@
 <?php
 /**
+ * User\Controller controls methods associated with user actions
  *
- *
- *
- *
- *
- *
+ * @package NeatstuffReference
+ * @subpackage User
+ * @author Dustin Doiron <dustin@weebly.com>
+ * @since 
  */
 namespace User;
 
@@ -17,7 +17,8 @@ use \Data\Configuration;
 class Controller
 {
   /**
-   *
+   * Users may not create subdomains on any of these locations
+   * @var $invalidSubdomains
    */
   private static $invalidSubdomains = array(
     'test',
@@ -29,14 +30,23 @@ class Controller
   );
 
   /**
+   * Creates a new user with the given payload, which must contain
+   * 'email' => string
+   * 'password' => string
+   * 'subdomain' => string
    *
+   * @return array
+   * @throws \API\Exception
    */
-	public static function create( $payload )
-	{
+  public static function create( $payload )
+  {
 		self::createUser( $payload['email'], $payload['password'], $payload['subdomain'] );
 
 		$user = self::doesUserExist( $payload['email'] );
-		if ( $user === false ) {
+  /**
+   * oops.
+   */
+  if ( $user === false ) {
 			throw new \API\Exception( 'Error creating user' );
 		}
 
@@ -51,7 +61,7 @@ class Controller
   }
 
   /**
-   *
+   * Receives a 
    */
   public static function createUser( $email, $password, $subdomain )
   {

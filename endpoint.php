@@ -1,8 +1,8 @@
 <?php
 /**
+ * Endpoint simply requires our boostrap files, and sends the request to \API\Endpoint
  *
- *
- *
+ * @package 
  *
  *
  */
