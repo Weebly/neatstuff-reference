@@ -13,6 +13,9 @@ use \Data\Configuration;
 
 class User extends Base
 {
+  /**
+   * Multiple primary key options here, because we may want to lookup a model based on any of them
+   */
   const DEFAULT_PRIMARY_KEY = 'user_id';
   const SECONDARY_PRIMARY_KEY = 'email';
   const TERTIARY_PRIMARY_KEY = 'subdomain';

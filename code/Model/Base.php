@@ -13,18 +13,40 @@ namespace Model;
 
 use \Data\PostgreSQL;
 use \ReflectionClass;
-use \ReflectionProperty;
-use \ReflectionMethod;
 use \PDO;
 
 abstract class Base
 {
   const SCHEMA = 'neatstuff.';
 
+  /**
+   * The data provider associated with acting upon this model
+   * @var $dataProvider
+   */
   private $dataProvider;
+
+  /**
+   * The primary key associated with this model
+   * @var $primaryKey
+   */
   private $primaryKey;
+
+  /**
+   * The state of the model at the time it was constructed
+   * @var $constructState
+   */
   private $constructState;
+
+  /**
+   * The Primary Key value we're using to look up this model
+   * @var $pkValue
+   */
   private $pkValue = NULL;
+
+  /**
+   * The table associated with this model
+   * @var $table
+   */
   public $table = NULL;
 
   /**
@@ -41,7 +63,12 @@ abstract class Base
   );
 
   /**
-   * Constructor
+   * Constructor, builds a representation of the model to be acted upon
+   * If a Primary Key value is given, uses that to perform a lookup of an existing model
+   *
+   * @param mixed $pkValue
+   *
+   * @return void
    */
   public function __construct( $pkValue = NULL )
   {
@@ -63,14 +90,16 @@ abstract class Base
   }
 
   /**
+   * Saves the current model to the data provider, if needed
+   * Determines need by calculating the delta of constructState to the current state, which is a bit... heavy
    *
-   *
+   * @return bool
    */
   public function save( )
   {
     $changed = array( );
 
-    foreach ( get_object_vars( $this ) as $property => $value ) {
+    foreach ( \get_object_vars( $this ) as $property => $value ) {
       if ( in_array( $property, $this->ignores ) === false ) {
         if ( $this->constructState[$property] !== $value ) {
           $changed[$property] = $value;
@@ -88,10 +117,12 @@ abstract class Base
   }
 
   /**
+   * Updates the current, existing, model with the given changed values with the data provider
    *
+   * @param array $changed
    *
-   *
-   *
+   * @return bool
+   * @throws \Exception
    */
   private function update( $changed )
   {
@@ -131,8 +162,12 @@ abstract class Base
   }
 
   /**
+   * Inserts the newly created model into the data provider
    *
+   * @param array $changed
    *
+   * @return bool
+   * @throws \Exception
    */
   public function insert( $changed )
   {
@@ -167,6 +202,12 @@ abstract class Base
     }
   }
 
+  /**
+   * Determines if the save method will be an insert or update by referencing the current state of the model,
+   * or by querying the data provider to determine if the model already exists
+   *
+   * @return bool
+   */
   private function isUpdate( )
   {
     if ( $this->pkValue !== NULL ) {
@@ -190,9 +231,12 @@ abstract class Base
   }
 
   /**
+   * Populates the current model with the given Primary Key and lookup value
    *
+   * @param string $primaryKey
+   * @param mixed $value
    *
-   *
+   * @return void
    */
   private function getModelData( $primaryKey, $value )
   {
@@ -216,9 +260,9 @@ abstract class Base
   }
 
   /**
+   * Retreives the data provider for the model, which is always PostgreSQL at this point
    *
-   *
-   *
+   * @return instanceof \PDO
    */
   private function getDataProvider( )
   {
@@ -226,7 +270,8 @@ abstract class Base
   }
 
   /**
-   *
+   * All classes which extend \Model\Base must have a way to determine the private key,
+   * either through hard-coding or a method, doesn't matter as long as we have one
    */
   abstract function getPrimaryKey( );
 }
