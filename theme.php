@@ -58,32 +58,32 @@ $theme = new \Model\Theme($id);
       </div>
       <div class="col1-3 white">
         <h2><?=$theme->name?></h2>
-		<p>Signup to start building your site!</p>
-		<form method="post" action="contact.php" name="contactform" id="contact" autocomplete="off">
-		  <fieldset>
-		    <div class="alignleft padding-right">
-			  <label for="email" accesskey="E"><span class="required">Email</span></label>
-			  <input name="email" type="text" id="email" size="30" title="Email *" />
-			  <label for="password" accesskey="E"><span class="required">Password</span></label>
-			  <input name="password" type="password" id="password" size="30" title="password *" />
-			  <label for="subdomain" accesskey="E"><span class="required">Subdomain</span></label>
-			  <input name="subdomain" type="text" id="subdomain" size="30" title="subdomain *" />
-			  <input type="hidden" name="theme_id" value="<?=$theme->theme_id?>" />
-			</div>
-		  </fieldset>
-		</form>
+    <p>Signup to start building your site!</p>
+    <form method="post" action="contact.php" name="contactform" id="contact" autocomplete="off">
+      <fieldset>
+        <div class="alignleft padding-right">
+        <label for="email" accesskey="E"><span class="required">Email</span></label>
+        <input name="email" type="text" id="email" size="30" title="Email *" />
+        <label for="password" accesskey="E"><span class="required">Password</span></label>
+        <input name="password" type="password" id="password" size="30" title="password *" />
+        <label for="subdomain" accesskey="E"><span class="required">Subdomain</span></label>
+        <input name="subdomain" type="text" id="subdomain" size="30" title="subdomain *" />
+        <input type="hidden" name="theme_id" value="<?=$theme->theme_id?>" />
+      </div>
+      </fieldset>
+    </form>
         <div class="grey-area clearfix">
           <div class="alignleft price"><?=$theme->price?></div>
           <p class="big button check alignright"><a id="start-button" href="#">Start Now</a></p>
         </div>
         <p class="small">
-		  <span class="alignleft">
-			<span class="uppercase">Tags:</span><br />
-			<?php foreach ($theme->getTagArray() as $tag): ?>
-				<a href="/#filter=.<?=$tag?>"><?=$tag?></a><br />
-			<?php endforeach?>
-		  </span>
-		</p>
+      <span class="alignleft">
+      <span class="uppercase">Tags:</span><br />
+      <?php foreach ($theme->getTagArray() as $tag): ?>
+        <a href="/#filter=.<?=$tag?>"><?=$tag?></a><br />
+      <?php endforeach?>
+      </span>
+    </p>
       </div>
       <div class="clear"></div>
       <!--</div>-->

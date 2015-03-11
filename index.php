@@ -53,9 +53,9 @@ $themes = \Model\Theme::findAll();
         </ul>
         <ul id="homepage" class="option-set clearfix" data-option-key="filter">
           <li><a href="#filter=.home" class="selected">All</a>
-		  <?php foreach ($tags as $tag): ?>
-		  <li><a href="#filter=.<?=$tag?>"><?=$tag?></a></li>
-		  <?php endforeach ?>
+      <?php foreach ($tags as $tag): ?>
+      <li><a href="#filter=.<?=$tag?>"><?=$tag?></a></li>
+      <?php endforeach ?>
         </ul>
       </div>
       <!-- end nav -->
@@ -64,9 +64,9 @@ $themes = \Model\Theme::findAll();
   <!-- end header -->
   <div id="content">
     <ul id="container">
-	  <?php foreach ($themes as $theme): ?>
-	  <li class="element home <?=str_replace(",", " ", $theme->tags)?>">
-	    <a href="/theme/<?=$theme->theme_id?>" title="Esparagus">
+    <?php foreach ($themes as $theme): ?>
+    <li class="element home <?=str_replace(",", " ", $theme->tags)?>">
+      <a href="/theme/<?=$theme->theme_id?>" title="Esparagus">
         <div class="images"><img src="<?=$theme->getScreenshotUrl()?>" alt="" />
           <div class="title">
             <div class="title-wrap">
@@ -80,8 +80,8 @@ $themes = \Model\Theme::findAll();
           </div>
         </div>
         </a>
-	  </li>
-	  <?php endforeach ?>
+    </li>
+    <?php endforeach ?>
     </ul>
   </div>
   <!-- end content -->
@@ -90,12 +90,12 @@ $themes = \Model\Theme::findAll();
 <footer>
   <div class="container">
     <ul class="social clearfix alignleft">
-	<!--
+  <!--
       <li class="pinterest"><a href="#" onClick="return false">Visit our pinterest Account</a></li>
       <li class="dribble"><a href="#" onClick="return false">Visit our dribble Account</a></li>
       <li class="tweat"><a href="#" onClick="return false">Visit our twitter Account</a></li>
       <li class="instagram"><a href="#" onClick="return false">Visit our instagram Account</a></li>
-	-->
+  -->
     </ul>
     <p class="small alignright"> © 2015, NeatStuff, Inc.</p>
   </div>

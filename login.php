@@ -63,25 +63,25 @@ $theme = new \Model\Theme(364);
         <div class="break"></div>
       </div>
       <div class="col1-3 white">
-		<h2>Login to edit your site</h2>
-		<form method="post" action="endpoint.php" name="contactform" id="contact" autocomplete="off">
-		  <fieldset>
-		    <div class="alignleft padding-right">
-			  <label for="email" accesskey="E"><span class="required">Email</span></label>
-			  <input name="email" type="text" id="email" size="30" title="Email *" />
-			  <label for="password" accesskey="E"><span class="required">Password</span></label>
-			  <input name="method" type="hidden" value="user::login" />
-			  <input name="password" type="password" id="password" size="30" title="password *" />
-			</div>
-		  </fieldset>
-		</form>
+    <h2>Login to edit your site</h2>
+    <form method="post" action="endpoint.php" name="contactform" id="contact" autocomplete="off">
+      <fieldset>
+        <div class="alignleft padding-right">
+        <label for="email" accesskey="E"><span class="required">Email</span></label>
+        <input name="email" type="text" id="email" size="30" title="Email *" />
+        <label for="password" accesskey="E"><span class="required">Password</span></label>
+        <input name="method" type="hidden" value="user::login" />
+        <input name="password" type="password" id="password" size="30" title="password *" />
+      </div>
+      </fieldset>
+    </form>
         <div class="grey-area clearfix">
           <p class="big button check alignleft"><a id="start-button" href="#">Login</a></p>
         </div>
         <p class="small">
-		  <span class="alignleft">
-		  </span>
-		</p>
+      <span class="alignleft">
+      </span>
+    </p>
       </div>
       <div class="clear"></div>
       <!--</div>-->

@@ -42,15 +42,15 @@ class Controller
    */
   public static function create( $payload )
   {
-		self::createUser( $payload['email'], $payload['password'], $payload['subdomain'] );
+    self::createUser( $payload['email'], $payload['password'], $payload['subdomain'] );
 
-		$user = self::doesUserExist( $payload['email'] );
-  /**
-   * oops.
-   */
-  if ( $user === false ) {
-			throw new \API\Exception( 'Error creating user' );
-		}
+    $user = self::doesUserExist( $payload['email'] );
+    /**
+     * oops.
+     */
+    if ( $user === false ) {
+      throw new \API\Exception( 'Error creating user' );
+    }
 
     self::createWeeblyAccount( $user );
     self::createWeeblySite( $user, $payload['theme_id'] );
@@ -81,7 +81,7 @@ class Controller
     $subdomain = self::validateSubdomain( $subdomain );
 
     if ( self::doesUserExist( $email ) !== false ) {
-			throw new \API\Exception( 'Cannot recreate existing user' );
+      throw new \API\Exception( 'Cannot recreate existing user' );
     }
     if ( self::doesUserExist( $subdomain ) !== false ) {
       throw new \API\Exception( 'Subdomain already exists' );
