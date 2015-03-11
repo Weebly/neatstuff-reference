@@ -65,19 +65,6 @@ class APIClient
     return json_decode( curl_exec( $curl ), true );
   }
 
-  public static function get( $url, $payload )
-  {
-    $curl = self::getCurlHandler( );
-
-    $options = array(
-      CURLOPT_URL => Configuration::WEEBLY_ENDPOINT . $url,
-      CURLOPT_HTTPHEADER => array(
-        'X-Public-Key: ' . Configuration::WEEBLY_PUBLIC_KEY,
-        'X-Signed-Request-Hash: ' . self::generateRequestHash( 'GET', $url, '' )
-      )
-    );
-  }
-
   private static function generateRequestHash( $method, $url, $payload )
   {
     return hash_hmac(
