@@ -1,11 +1,13 @@
 <?php
 /**
+ * Ever started writing a project and say to your teamate, "Hey, let's not write an ORM?"
+ * \Model\Base is the ORM which controls data held in the reference application's models
+ * See the README.md in this folder for more details on how this works, known bugs, etc
  *
- *
- *
- *
- *
- *
+ * @package NeatstuffReference
+ * @subpackage Model
+ * @author Dustin Doiron <dustin@weebly.com>
+ * @since 
  */
 namespace Model;
 
@@ -26,7 +28,8 @@ abstract class Base
   public $table = NULL;
 
   /**
-   * Ignore these values
+   * CRUD methods should ignore member variables which are named the following
+   * @var $ignores
    */
   private $ignores = array(
     'dataProvider',

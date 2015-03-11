@@ -1,12 +1,11 @@
 <?php
 /**
+ * Data\Configuration handles all strings and values associated with running the reference project
  *
- *
- *
- *
- *
- *
- *
+ * @package NeatstuffReference
+ * @subpackage Data
+ * @author Dustin Doiron <dustin@weebly.com>
+ * @since 
  */
 namespace Data;
 
@@ -32,6 +31,10 @@ class Configuration
 
   const USER_PASSWORD_COST = 10;
 
+  /**
+   * Maps PostgreSQL instances to DSN strings in this class
+   * @var $postgresql
+   */
   public static $postgresql = array(
     PostgreSQL::USER_DATA_IDENTIFIER => self::POSTGRES_USER_DSN
   );
