@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteRule ^theme/(.*)$ /theme.php?id=$1
+
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.gitignore
