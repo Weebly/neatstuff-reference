@@ -18,6 +18,7 @@ To see NeatStuff in action, you can visit http://store.neatstuffontheinternet.co
 # Getting Started
  * Edit `code/Data/Configuration.php` and update with the appropriate strings for your installation.
  * Use the schema in `code/schema.sql` to create the database.
+ * Use the Apache configuration in `code/apache.conf`, updating it to point to your desired base publish directory.
  * Ensure the web user has the ability to manipulate files & folders in the published site directory.
  * That's pretty much it.
 
