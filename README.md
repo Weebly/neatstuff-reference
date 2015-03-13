@@ -10,8 +10,10 @@ The concept behind this was see if it was possible to, effectively, write a mode
 To see NeatStuff in action, you can visit http://store.neatstuffontheinternet.com.
 
 # Requirements
+ * Apache
  * PHP >= 5.6
- * PostgreSQL
+ * PostgreSQL (written on 9.3, but will likely work on 8.0+)
+ * An FTP server (we used vsftpd)
 
 # Getting Started
  * Edit `code/Data/Configuration.php` and update with the appropriate strings for your installation.
