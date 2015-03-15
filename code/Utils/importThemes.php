@@ -1,4 +1,17 @@
 <?php
+/**
+ * Imports theme files in the `code/Utils/BaseTemplates` directory
+ * As a reference release, the BaseTemplates directory contains a basic Weebly theme
+ * The two methods to get theme metadata just get random values right now, but you can edit these
+ * to support your implementation.
+ *
+ * Usage for this file is `php ./importThemes.php`.
+ *
+ * @package NeatstuffReference
+ * @subpackage Util
+ * @author Drew Richards <drew@weebly.com>
+ * @since 
+ */
 
 require_once(__DIR__ . "/../../bootstrap/Init.php");
 
@@ -14,7 +27,7 @@ foreach (new DirectoryIterator($baseTemplateDir) as $file) {
   if ($file->isDot()) {
     continue;
   }
-  
+
   $filename = \Model\Theme::nameToFile($file->getFilename());
   copy($file->getPathname(), $finalTemplateDir ."/" . $filename);
   if (preg_match("/\.zip$/", $file->getFilename())) {
@@ -26,18 +39,21 @@ foreach (new DirectoryIterator($baseTemplateDir) as $file) {
   }
 }
 
-
 /**
- * Randomly assigns tags to a theme.
- **/
+ * Randomly returns values from the "tags" array above
+ *
+ * @return string
+ */
 function getTags()
 {
   return getRandomValues($GLOBALS['tags']);
 }
 
 /**
- * Randomly gets a price.
- **/
+ * Randomly returns a value from the "prices" array above
+ *
+ * @return flaot
+ */
 function getPrice() {
   $prices = $GLOBALS['prices'];
   $key = array_rand($prices);
@@ -45,8 +61,10 @@ function getPrice() {
 }
 
 /**
- * Gets random values from an array and concatenates them with a ,
- **/
+ * Gets random values from the given array and concatenates them with a ,
+ *
+ * @return string
+ */
 function getRandomValues($array)
 {
   $numValues = rand(1, count($array));
