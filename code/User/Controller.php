@@ -166,18 +166,13 @@ class Controller
       throw new \API\Exception( 'Error creating site ' . $site['error']['message'] );
     }
 
-    $credentials = \Weebly\APIClient::post(
-      'user/' . $user->weebly_user . '/site/' . $site['site']['site_id'] . '/setPublishCredentials',
-      array(
-        'publish_host' => Configuration::FTP_HOST,
-        'publish_username' => Configuration::FTP_USER,
-        'publish_password' => Configuration::FTP_PASSWORD,
-        'publish_path' => Configuration::FTP_PATH_PREFIX . $user->subdomain
-      )
-    );
-
-    if ( isset( $credentials['error'] ) === true ) {
-      throw new \API\Exception( 'Error setting credentials ' . $credentials['error']['message'] );
+    try
+    {
+      $credentials = \FTP\Controller::setWeeblyFTPCredentials( $user, $site['site']['site_id'] );
+    }
+    catch ( \Exception $e )
+    {
+      throw new \API\Exception( 'Error setting credentials ' . $e->getMessage( ) );
     }
 
     $themeFile = Configuration::THEME_HOST . strtolower( preg_replace( "/[^a-z]/i", '', $theme->name ) ) . '.zip';
