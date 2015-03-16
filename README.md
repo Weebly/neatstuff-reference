@@ -19,8 +19,10 @@ To see NeatStuff in action, you can visit http://store.neatstuffontheinternet.co
  * Edit `code/Data/Configuration.php` and update with the appropriate strings for your installation.
  * Use the schema in `code/schema.sql` to create the database.
  * Use the Apache configuration in `code/apache.conf`, updating it to point to your desired base publish directory.
+ * Create a symlink in your base publish directory, or otherwise make `themes.yourdomain.com` point to `/themes` in this project.
+ * Add your theme zip files to `code/Util/BaseTemplates` and run `code/Util/importThemes.php` (see the example template, and documentation in `importThemes.php` for details).
  * Ensure the web user has the ability to manipulate files & folders in the published site directory.
- * That's pretty much it.
+ * You're done!
 
 # Issues You Should Know About
  * Understand the nature of this software -- it was written during a caffiene fueled bender. There will absolutely be bugs, security issues, etc.
