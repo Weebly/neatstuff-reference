@@ -29,8 +29,7 @@ To see NeatStuff in action, you can visit http://store.neatstuffontheinternet.co
  * The documentation was written on a plane a couple of months after we finished (and WON!) the hackathon. My recollection is not perfect.
  * This should absolutely only be used as a reference object.
 
-License
--------
+# License
 Copyright (c) 2015, Weebly
 All rights reserved.
 
