@@ -16,7 +16,7 @@ To see NeatStuff in action, you can visit http://store.neatstuffontheinternet.co
  * An FTP server (we used vsftpd)
 
 # Getting Started
- * Edit `code/Data/Configuration.php` and update with the appropriate strings for your installation.
+ * Move and edit `code/Data/Configuration.php.template` to `code/Data/Configuration.php` and update with the appropriate strings for your installation.
  * Use the schema in `code/schema.sql` to create the database.
  * Use the Apache configuration in `code/apache.conf`, updating it to point to your desired base publish directory.
  * Create a symlink in your base publish directory, or otherwise make `themes.yourdomain.com` point to `/themes` in this project.
