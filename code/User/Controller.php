@@ -142,23 +142,26 @@ class Controller
    * @return void
    * @throws \API\Exception
    */
-  public static function createWeeblySite( $userId, $themeId )
+  public static function createWeeblySite( $userId, $themeId = NULL )
   {
     $user = new User( $userId );
     if ( $user->user_id === NULL ) {
       throw new \API\Exception( 'Could not find user ' . $userId );
     }
 
-    $theme = new Theme( $themeId );
-    if ( $theme->theme_id === NULL ) {
-      throw new \API\Exception( 'Could not find theme ' . $themeId );
+    if ( isset( $themeId ) === true )
+    {
+      $theme = new Theme( $themeId );
+      if ( $theme->theme_id === NULL ) {
+        throw new \API\Exception( 'Could not find theme ' . $themeId );
+      }
     }
 
     $site = \Weebly\APIClient::post(
       'user/' . $user->weebly_user . '/site',
       array(
         'domain' => $user->subdomain . Configuration::BRAND_DOMAIN,
-        'site_title' => $theme->name
+        'site_title' => isset( $themeId ) === true ? $theme->name : ''
       )
     );
 
@@ -175,32 +178,35 @@ class Controller
       throw new \API\Exception( 'Error setting credentials ' . $e->getMessage( ) );
     }
 
-    $themeFile = Configuration::THEME_HOST . strtolower( preg_replace( "/[^a-z]/i", '', $theme->name ) ) . '.zip';
-    $themeCreate = \Weebly\APIClient::post(
-      'user/' . $user->weebly_user . '/theme',
-      array(
-        'theme_name' => $theme->name,
-        'theme_zip' => $themeFile
-      )
-    );
+    if ( isset( $themeId ) === true )
+    {
+      $themeFile = Configuration::THEME_HOST . strtolower( preg_replace( "/[^a-z]/i", '', $theme->name ) ) . '.zip';
+      $themeCreate = \Weebly\APIClient::post(
+        'user/' . $user->weebly_user . '/theme',
+        array(
+          'theme_name' => $theme->name,
+          'theme_zip' => $themeFile
+        )
+      );
 
-    if ( isset( $themeCreate['error'] ) === true ) {
-      throw new \API\Exception( 'Could not upload theme ' . $themeCreate['error']['message'] );
-    }
+      if ( isset( $themeCreate['error'] ) === true ) {
+        throw new \API\Exception( 'Could not upload theme ' . $themeCreate['error']['message'] );
+      }
 
-    $themeSet = \Weebly\APIClient::post(
-      'user/' . $user->weebly_user . '/site/' . $site['site']['site_id'] . '/theme',
-      array(
-        'theme_id' => $themeCreate['theme_id'],
-        /**
-         * todo default to this for now
-         */
-        'is_custom' => true
-      )
-    );
+      $themeSet = \Weebly\APIClient::post(
+        'user/' . $user->weebly_user . '/site/' . $site['site']['site_id'] . '/theme',
+        array(
+          'theme_id' => $themeCreate['theme_id'],
+          /**
+           * todo default to this for now
+           */
+          'is_custom' => true
+        )
+      );
 
-    if ( isset( $themeSet['error'] ) === true ) {
-      throw new \API\Exception( 'Could not set theme ' . $themeSet['error']['message'] );
+      if ( isset( $themeSet['error'] ) === true ) {
+        throw new \API\Exception( 'Could not set theme ' . $themeSet['error']['message'] );
+      }
     }
   }
 
