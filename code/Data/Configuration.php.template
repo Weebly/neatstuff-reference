@@ -23,6 +23,7 @@ class Configuration
 
   const FTP_CREDENTIAL_MODE = 'constants';
   const FTP_HOST = 'YOUR_FTP_HOST';
+  const FTP_PORT = 'YOUR_FTP_PORT'; // For default, set this to NULL
   const FTP_USER = 'YOUR_FTP_USER';
   const FTP_PASSWORD = 'YOUR_FTP_PASSWORD';
   const FTP_PATH_PREFIX = 'YOUR_FTP_PATH_PREFIX';

@@ -41,6 +41,13 @@ class Controller
       'publish_path' => self::getFTPCredential( $user, self::FTP_KEY_PUBLISH_PATH )
     );
 
+    $port = self::getFTPCredential( $user, self::FTP_KEY_PUBLISH_PORT );
+
+    if ( isset( $port ) === true )
+    {
+      $credentials['publish_host'] = $credentials['publish_host'] . ':' . $port;
+    }
+
     $request = \Weebly\APIClient::post(
       'user/' . $user->weebly_user . '/site/' . $weeblySiteId . '/setPublishCredentials',
       $credentials
@@ -69,6 +76,10 @@ class Controller
       {
         case self::FTP_KEY_PUBLISH_HOST:
           $value = Configuration::FTP_HOST;
+          break;
+
+        case self::FTP_KEY_PUBLISH_PORT:
+          $value = Configuration::FTP_PORT;
           break;
 
         case self::FTP_KEY_PUBLISH_USERNAME:
